@@ -1,6 +1,8 @@
 package techacademy.wakou.youko.taskapp;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -143,6 +145,16 @@ public class InputActivity extends AppCompatActivity {
         realm.copyToRealmOrUpdate(mTask);
         realm.commitTransaction();
         realm.close();
+
+        Intent resultIntent = new Intent(getApplicationContext(),TaskAlarmReceivar.class);
+        resultIntent.putExtra(MainActivity.EXTRA_TASK,mTask.getId());
+        PendingIntent resulgtPendingIntent = PendingIntent.getBroadcast(
+                this,
+                resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),resultPendingIntent);
 
     }
 }

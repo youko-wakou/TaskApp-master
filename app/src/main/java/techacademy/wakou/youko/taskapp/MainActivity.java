@@ -1,6 +1,8 @@
 package techacademy.wakou.youko.taskapp;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
                         mRealm.beginTransaction();
                         results.deleteAllFromRealm();
                         mRealm.commitTransaction();
+
+                        Intent resultIntent = new Intent(getApplicationContext(),TaskAlarmReceivar.class);
+                        PendingIntent resultPendingIntent = PendingIntent.getBroadcast(
+                                MainActivity.this,
+                                task.getId(),
+                                resultIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                        alarmManager.cancel(resultPendingIntent);
                         reloadListView();
                     }
                 });
@@ -91,32 +103,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void reloadListView() {
-
-        RealmResults<Task> taskRealmResults = mRealm.where(Task.class).findAllSorted("date", Sort.DESCENDING);
-
-        mTaskAdapter.setTaskList(mRealm.copyFromRealm(taskRealmResults));
-
-        mListView.setAdapter(mTaskAdapter);
-
-        mTaskAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        mRealm.close();
-    }
-
-//    private void addTaskForTest() {
-//        Task task = new Task();
-//        task.setTitle("作業");
-//        task.setContents("プログラムを書いてPUSHする");
-//        task.setDate(new Date());
-//        task.setId(0);
-//        mRealm.beginTransaction();
-//        mRealm.copyToRealmOrUpdate(task);
-//        mRealm.commitTransaction();
+//    private void reloadListView() {
+//
+//        RealmResults<Task> taskRealmResults = mRealm.where(Task.class).findAllSorted("date", Sort.DESCENDING);
+//
+//        mTaskAdapter.setTaskList(mRealm.copyFromRealm(taskRealmResults));
+//
+//        mListView.setAdapter(mTaskAdapter);
+//
+//        mTaskAdapter.notifyDataSetChanged();
 //    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        mRealm.close();
+//    }
+
+
 }

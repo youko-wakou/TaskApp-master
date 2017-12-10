@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="techacademy.wakou.youko.taskapp">
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name=".TaskApp"
@@ -29,6 +30,7 @@
                 android:name = "android.support.PARENT_ACTIVITY"
                 android:value="techacademy.wakou.youko.taskapp.MainActivity"/>
         </activity>
+        <receiver android:name=".TaskAlarmReceivar"/>
     </application>
 
 </manifest>
