@@ -148,8 +148,9 @@ public class InputActivity extends AppCompatActivity {
 
         Intent resultIntent = new Intent(getApplicationContext(),TaskAlarmReceivar.class);
         resultIntent.putExtra(MainActivity.EXTRA_TASK,mTask.getId());
-        PendingIntent resulgtPendingIntent = PendingIntent.getBroadcast(
+        PendingIntent resultPendingIntent = PendingIntent.getBroadcast(
                 this,
+                mTask.getId(),
                 resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
         );

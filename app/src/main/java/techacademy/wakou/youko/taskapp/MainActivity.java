@@ -1,14 +1,13 @@
 package techacademy.wakou.youko.taskapp;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -103,23 +102,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private void reloadListView() {
-//
-//        RealmResults<Task> taskRealmResults = mRealm.where(Task.class).findAllSorted("date", Sort.DESCENDING);
-//
-//        mTaskAdapter.setTaskList(mRealm.copyFromRealm(taskRealmResults));
-//
-//        mListView.setAdapter(mTaskAdapter);
-//
-//        mTaskAdapter.notifyDataSetChanged();
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        mRealm.close();
-//    }
+    private void reloadListView() {
+
+        RealmResults<Task> taskRealmResults = mRealm.where(Task.class).findAllSorted("date", Sort.DESCENDING);
+
+        mTaskAdapter.setTaskList(mRealm.copyFromRealm(taskRealmResults));
+
+        mListView.setAdapter(mTaskAdapter);
+
+        mTaskAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mRealm.close();
+    }
 
 
 }
